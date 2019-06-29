@@ -6,12 +6,12 @@ import Button from '../../components/Button';
 export default class Home extends Component {
 
   state = {
-    name: ''
+    value: ''
   }
 
   handleChange = e => {
     this.setState({
-      name: e.target.value
+      value: e.target.value
     })
   }
 
@@ -28,7 +28,7 @@ export default class Home extends Component {
               required
             />
             <Button>
-              Enviar
+              Entrar
             </Button>
           </div>
         </div>
