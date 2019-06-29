@@ -1,0 +1,9 @@
+@import '../../styles/global.scss';
+
+#Button{
+  background-color: $secundary-color;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
