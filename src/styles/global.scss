@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+
+$primary-color: #7159C1;
+$secundary-color: #27ce7a;
+
+body{
+  background-color: $primary-color !important;
+  font-family: 'Raleway', sans-serif !important;
+  height: 100%;
+}
