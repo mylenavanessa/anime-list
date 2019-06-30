@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import './styles.scss';
 import { Input } from 'reactstrap';
 import Button from '../../components/Button';
+import * as dispatchers from '../../store/ducks/users/dispatchers' 
 
-export default class Home extends Component {
+class Home extends Component {
 
   state = {
     value: ''
@@ -15,6 +17,19 @@ export default class Home extends Component {
     })
   }
 
+  onLogin = () => {
+    const { dispatchFetchUser, dispatchAddUser } = this.props
+    dispatchFetchUser(this.state.value)
+
+    
+    this.props.history.push('/search')
+  }
+
+  componentDidMount () {
+    const { dispatchClearUser } = this.props
+    dispatchClearUser()
+  }
+ 
   render() {
     return (
       <div id="Home">
@@ -27,7 +42,7 @@ export default class Home extends Component {
               value={this.state.value}
               required
             />
-            <Button>
+            <Button onClick={this.onLogin}>
               Entrar
             </Button>
           </div>
@@ -36,3 +51,16 @@ export default class Home extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    users: state.users
+  }
+}
+
+const mapDispatchToProps = {
+  ...dispatchers
+}
+
+
+export default connect (mapStateToProps, mapDispatchToProps)(Home)

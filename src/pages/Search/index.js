@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import { Input, Spinner } from 'reactstrap';
 import Button from '../../components/Button';
 import AnimeItem from '../../components/AnimeItem';
 import './styles.scss';
+import * as dispatchAnimals from '../../store/ducks/animes/dispatchers'
+import * as dispatchUsers from '../../store/ducks/users/dispatchers'
 
 const anime = {
   "mal_id": 20,
@@ -20,7 +23,7 @@ const anime = {
   "rated": "PG-13"
 }
 
-export default class Search extends Component {
+class Search extends Component {
   state = {
     value: ''
   }
@@ -31,7 +34,18 @@ export default class Search extends Component {
     })
   }
 
+  fetchAnimes = () => {
+    const { dispatchFetchAnimes } = this.props
+    dispatchFetchAnimes(this.state.value)
+  }
+
+  onAdd = (item) => {
+    const { dispatchAddAnime } = this.props
+    dispatchAddAnime(item)
+  }
+
   render() {
+    const { animes, users } = this.props
     return (
       <div id="Search">
         <div className="wrapper">
@@ -41,19 +55,20 @@ export default class Search extends Component {
               onChange={this.handleChange} 
               value={this.state.value}
             />
-            <Button>
+            <Button onClick={this.fetchAnimes}>
               {
-                true ?
+                animes.loading ?
                   <Spinner className="spinner" type="grow"/>
                 :
                   'Buscar'
               }
             </Button>
+            <Button onClick={() => this.props.history.push('/mylist')}>Lista</Button>
           </div>
           <div>
             {
-              [anime,anime,anime].map(item => 
-                <AnimeItem anime={item}/>
+              animes.animes.map(item => 
+                <AnimeItem anime={item} key={item.mal_id} onAdd={() => this.onAdd(item)}/>
               )
             }
           </div>
@@ -62,3 +77,17 @@ export default class Search extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return{
+    animes: state.animes,
+    users: state.users
+  }
+}
+
+const mapDispatchToProps = {
+  ...dispatchUsers,
+  ...dispatchAnimals
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search)

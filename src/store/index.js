@@ -8,11 +8,11 @@ import rootReducer from './ducks'
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['users']
+  blacklist: ['animes']
 }
-
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
-let store = createStore(persistedReducer, applyMiddleware(thunk))
+let store = createStore(persistedReducer, {}, applyMiddleware(thunk));
+
 let persistor = persistStore(store)
 export { store, persistor }

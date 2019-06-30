@@ -5,8 +5,8 @@ export function dispatchFetchAnimes(name) {
   return async dispatch => {
     dispatch(Creators.fetchAnimes())
     try {
-      const  animes  = await api.get(`/${name}`)
-      dispatch(Creators.fetchAnimesSuccess(animes))
+      const {data : animes}= await api.get(`/anime?q=${name}&limit=5`)
+      dispatch(Creators.fetchAnimesSuccess(animes.results))
     }catch(e) {
       dispatch(Creators.fetchAnimesError('Erro ao buscar animes'))
     }
