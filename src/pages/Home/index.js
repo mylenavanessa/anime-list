@@ -18,7 +18,7 @@ class Home extends Component {
   }
 
   onLogin = () => {
-    const { dispatchFetchUser, dispatchAddUser } = this.props
+    const { dispatchFetchUser } = this.props
     dispatchFetchUser(this.state.value)
 
     

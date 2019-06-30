@@ -86,7 +86,6 @@ const INITIAL_STATE = {
 }
 
 const usersReducer = (state = INITIAL_STATE, action) => {
-  console.log(state.user)
   switch(action.type){
     case FETCH_USER:
       return {...state, loading: true }

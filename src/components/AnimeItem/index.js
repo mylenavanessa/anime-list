@@ -5,7 +5,7 @@ import './styles.scss';
 export default function AnimeItem({anime, onAdd = () => {}, onRemove = null}) {
   return (
     <div id="AnimeItem">
-      <a href={anime.url} target="_blank">
+      <a href={anime.url} target="_blank" rel="noopener noreferrer">
         <img src={anime.image_url} alt={anime.title}/>
       </a>
       <dl>
